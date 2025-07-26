@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  nginx-insecure:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-07-26T09:58:31.795640588+07:00"
+    description: A Helm chart for Kubernetes
+    digest: fb740e79e1fb846ed8dd62921e85ef7c906462418cd067a63a3eae535ea08464
+    name: nginx-insecure
+    type: application
+    urls:
+    - https://xlinkersoul.github.io/my-helm-charts/nginx-insecure-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-07-26T09:58:31.794776492+07:00"
