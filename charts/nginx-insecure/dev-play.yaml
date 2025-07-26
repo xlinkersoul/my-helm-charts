@@ -1,0 +1,126 @@
+image:
+  repository: nginxinc/nginx-unprivileged
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "stable-alpine"
+
+securityContext:
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+  runAsUser: 101
+  runAsGroup: 101
+  fsGroup: 101
+
+
+ingress:
+  enabled: true
+  hosts:
+    - host: dev-nginx-insecure.play.k8s.maas
+      paths:
+        - path: /
+          pathType: Prefix
+
+configFiles:
+  index.html.template : |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Pod Info</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+
+        table {
+          margin-top: 20px;
+          border-collapse: collapse;
+          width: 50%;
+        }
+
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+
+        th {
+          background-color: #f2f2f2;
+        }
+
+        .theme-red {
+          background-color: #ffe5e5;
+          color: #a00000;
+        }
+
+        .theme-green {
+          background-color: #e5ffe5;
+          color: #006600;
+        }
+
+        .theme-blue {
+          background-color: #e5f0ff;
+          color: #003366;
+        }
+
+        .theme-switcher button {
+          margin-right: 10px;
+          padding: 6px 12px;
+          border: none;
+          cursor: pointer;
+        }
+      </style>
+    </head>
+    <body class="theme-blue">
+
+      <h1>Pod Metadata</h1>
+
+      <div class="theme-switcher">
+        <button onclick="setTheme('theme-red')">Red Theme</button>
+        <button onclick="setTheme('theme-green')">Green Theme</button>
+        <button onclick="setTheme('theme-blue')">Blue Theme</button>
+      </div>
+
+      <table>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>POD_NAME</td>
+          <td>$POD_NAME</td>
+        </tr>
+        <tr>
+          <td>POD_NAMESPACE</td>
+          <td>$POD_NAMESPACE</td>
+        </tr>
+      </table>
+
+      <script>
+        function setTheme(theme) {
+          document.body.className = theme;
+        }
+      </script>
+
+    </body>
+    </html>
+  gong.html : |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Kubernetes Pod Info Gong</title>
+    </head>
+    <body>
+        <h1>GONG.HTML Hello from Kubernetes!</h1>
+        <h2>
+        <p><strong>Pod Namespace:</strong> $POD_NAMESPACE</p>
+        <p><strong>Pod Name:</strong> $POD_NAME</p>
+        </h2>
+    </body>
+    </html>

@@ -1,5 +1,5 @@
 
 
-helm template -f dev-values.yaml dev-nginx . | less
+helm template -f dev-play.yaml dev-nginx . | less
 
-helm upgrade --install --namespace=default dev-nginx -f dev-values.yaml .
+helm upgrade --install --namespace=gong dev-nginx -f dev-play.yaml .

@@ -101,11 +101,16 @@ tolerations: []
 affinity: {}
 
 configFiles:
-  index.html: |
-    <!DOCTYPE html><html><head><title>Welcome to nginx!</title></head>
-    <body><h1>UnPrivileges - Nginx</h1><br><h1>Welcome to nginx!<br>%s</h1></body></html>'
-    "${HOSTNAME}"
+  index.html.template : |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Kubernetes Pod Info</title>
+    </head>
+    <body>
+        <h1>Hello from Kubernetes!</h1>
+        <p><strong>Pod Name:</strong> $POD_NAME</p>
+        <p><strong>Pod Namespace:</strong> $POD_NAMESPACE</p>
+    </body>
+    </html>
 
-  app.conf: |
-    port=8080
-    mode=production

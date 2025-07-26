@@ -13,8 +13,9 @@ spec:
       {{- include "nginx-insecure.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        helm.sh/redeploy-timestamp: "{{ now | unixEpoch }}"
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -30,6 +31,39 @@ spec:
       serviceAccountName: {{ include "nginx-insecure.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-html
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - sh
+            - -c
+            - |
+              for f in /template/*; do
+                if [ -f "$f" ]; then
+                  filename=$(basename "$f")
+                  if [ "${filename##*.}" = "template" ]; then
+                    out="/usr/share/nginx/html/${filename%.template}"
+                    envsubst < "$f" > "$out"
+                  else
+                    cp "$f" "/usr/share/nginx/html/$filename"
+                  fi
+                fi
+              done
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+            - name: config-volume
+              mountPath: /template
+              readOnly: true
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -47,15 +81,19 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config-volume
+            # - name: config-volume
+            #   mountPath: /usr/share/nginx/html
+              # readOnly: true
+            - name: html-volume
               mountPath: /usr/share/nginx/html
-              readOnly: true
             - name: tmp-volume
               mountPath: /tmp
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
       volumes:
+        - name: html-volume
+          emptyDir: {}
         - name: config-volume
           configMap:
             name: {{ include "my-app.fullname" . }}-config
