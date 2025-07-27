@@ -1,0 +1,38 @@
+{{- range .Values.applications }}
+{{- $name := .name }}
+{{- $namespace := .namespace | default "default" }}
+{{- $project := .project | default $.Values.defaults.project }}
+{{- $server := (or (hasKey .destination "server" | ternary .destination.server "" | toString | trim) $.Values.defaults.destination.server) }}
+{{- $destNs := (hasKey .destination "namespace" | ternary .destination.namespace "" | toString | trim | default $namespace) }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $name }}
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $project }}
+  destination:
+    namespace: {{ $destNs }}
+    server: {{ $server }}
+  {{- if and .source (not .sources) }}
+  source:
+{{ toYaml .source | nindent 4 }}
+  {{- else if and .sources (not .source) }}
+  sources:
+{{ toYaml .sources | nindent 4 }}
+  {{- else }}
+  {{- fail (printf "Application '%s' must define either 'source' or 'sources', but not both." $name) }}
+  {{- end }}
+
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Prune=true
+---
+{{- end }}

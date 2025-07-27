@@ -1,0 +1,51 @@
+applications:
+  - name: app-1
+    source:
+      repoURL: "git@github.com:techguys-tidc/gitops-pso-cluster.git"
+      targetRevision: "gong-dev"
+      path: "argocd-applicationset/namespaces/app01"
+      directory:
+        recurse: true
+    destination: 
+      namespace: 'app-1'
+  - name: app-2
+    source:
+      repoURL: "git@github.com:techguys-tidc/gitops-pso-cluster.git"
+      targetRevision: "gong-dev"
+      path: "argocd-applicationset/namespaces/app02"
+      directory:
+        recurse: true
+    destination: 
+      namespace: 'app-2'
+  # - name: app-1
+  #   namespace: app-1
+  #   source:
+  #     chart: mychart
+  #     repoURL: https://charts.example.com
+  #     targetRevision: 1.2.3
+  #     valueFiles:
+  #       - values/staging.yaml
+
+  # - name: app-1
+  #   namespace: app-1
+  #   sources:
+  #     - repoURL: "https://grafana.github.io/helm-charts"
+  #       chart: "grafana"
+  #       targetRevision: "8.8.5" # Specify the version of the Helm chart
+  #       helm:
+  #         releaseName: my-grafana
+  #         # parameters:
+  #         #   - name: persistence.enabled
+  #         #     value: "true"
+  #         valueFiles:
+  #           - $git-pso-cluster-values/helm-values/grafana/pso_grafana.pso.k8s.maas.yaml
+  #     - repoURL: "git@github.com:techguys-tidc/gitops-pso-cluster.git"
+  #       targetRevision: "gong-dev"
+  #       ref: "git-pso-cluster-values"
+
+defaults:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: 'default'
+  project: default
+  env: dev
