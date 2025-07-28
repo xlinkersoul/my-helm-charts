@@ -34,6 +34,9 @@ spec:
       initContainers:
         - name: init-html
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - sh
             - -c

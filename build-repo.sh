@@ -7,7 +7,7 @@ set -e
 REPO_DIR=./docs
 
 # Clean up previous output
-rm -rf $REPO_DIR
+#rm -rf $REPO_DIR
 mkdir -p $REPO_DIR
 
 # Package all charts in ./charts/
