@@ -15,7 +15,7 @@ metadata:
 spec:
   project: {{ $project }}
   destination:
-    namespace: {{ $destNs }}
+    namespace: {{ $.Values.defaults.env | default "env" }}-{{ $destNs }}
     server: {{ $server }}
   {{- if and .source (not .sources) }}
   source:
