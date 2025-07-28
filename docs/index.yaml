@@ -3,9 +3,9 @@ entries:
   argocd-bulk-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-27T09:51:28.648193073+07:00"
+    created: "2025-07-28T10:29:09.953519657+07:00"
     description: A Helm chart for Kubernetes
-    digest: b3bbd2281ace53eaab19ffdcfc0c566ab59b48f5189979afb69711022f2f8932
+    digest: 9f4b9ae8ab72b8f06ce997b20c9696b18955e2530b42e4acfa15f20e3d07126b
     name: argocd-bulk-app
     type: application
     urls:
@@ -14,12 +14,12 @@ entries:
   nginx-insecure:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-27T09:51:28.648972284+07:00"
+    created: "2025-07-28T10:29:09.954167195+07:00"
     description: A Helm chart for Kubernetes
-    digest: 68f0283d5c06872e66e5f881a54f80a535b98eecdb058e135b6004942931675d
+    digest: 98f5e7051835f3055e5b6616d8fe710fdbc22cef8523056a997571ab6155f576
     name: nginx-insecure
     type: application
     urls:
     - https://xlinkersoul.github.io/my-helm-charts/nginx-insecure-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-27T09:51:28.647686912+07:00"
+generated: "2025-07-28T10:29:09.952957338+07:00"
