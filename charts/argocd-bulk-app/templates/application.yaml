@@ -25,12 +25,13 @@ spec:
   {{- fail (printf "Application '%s' must define either 'source' or 'sources', but not both." $name) }}
   {{- end }}
 
+
+
+  {{- if .syncPolicy }}
   syncPolicy:
-    automated:
-      allowEmpty: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - Prune=true
----
+{{ toYaml .syncPolicy | nindent 4 }}
+  {{- else if $.Values.defaults.syncPolicy }}
+  syncPolicy:
+{{ toYaml $.Values.defaults.syncPolicy | nindent 4 }}
+  {{- end }}
 {{- end }}

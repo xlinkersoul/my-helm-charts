@@ -49,3 +49,10 @@ defaults:
     namespace: 'default'
   project: default
   env: dev
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Prune=true
