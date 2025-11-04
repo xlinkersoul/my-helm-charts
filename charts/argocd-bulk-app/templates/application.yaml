@@ -2,21 +2,19 @@
 {{- $name := .name }}
 {{- $namespace := .namespace | default "default" }}
 {{- $project := .project | default $.Values.defaults.project }}
-{{- $server := (or (hasKey .destination "server" | ternary .destination.server "" | toString | trim) $.Values.defaults.destination.server) }}
-{{- $destNs := (hasKey .destination "namespace" | ternary .destination.namespace "" | toString | trim | default $namespace) }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.defaults.env | default "env" }}-{{ $name }}
+  name: {{ $.Values.defaults.env | default "env" }}-{{ $.Values.defaults.destination.namespace | default "default" }}-{{ $name }}
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: {{ $project }}
   destination:
-    namespace: {{ $.Values.defaults.env | default "env" }}-{{ $destNs }}
-    server: {{ $server }}
+    namespace: {{ $.Values.defaults.env | default "env" }}-{{ $.Values.defaults.destination.namespace | default "default" }}
+    server: {{ $.Values.defaults.destination.server | default "https://kubernetes.default.svc" }}
   {{- if and .source (not .sources) }}
   source:
 {{ toYaml .source | nindent 4 }}
