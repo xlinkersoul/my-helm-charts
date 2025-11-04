@@ -3,7 +3,17 @@ entries:
   argocd-bulk-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-04T20:50:56.266915698+07:00"
+    created: "2025-11-04T20:59:07.394426288+07:00"
+    description: A Helm chart for Kubernetes
+    digest: c0148c04a04cd7a2db37c93d0ad6b77f5bfe11417f5176bbe83a41a6093e2079
+    name: argocd-bulk-app
+    type: application
+    urls:
+    - https://xlinkersoul.github.io/my-helm-charts/argocd-bulk-app-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-11-04T20:59:07.394103707+07:00"
     description: A Helm chart for Kubernetes
     digest: 0e2fc646faa718f6dab6b66ddcddc257224b3826ed529bf53690e3e96ea3efce
     name: argocd-bulk-app
@@ -13,7 +23,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-04T20:50:56.26657807+07:00"
+    created: "2025-11-04T20:59:07.393805506+07:00"
     description: A Helm chart for Kubernetes
     digest: ce37a6b7c27ccb83b0fb394e72afe2569562b9fab28e879ce4576eb83ca4b22c
     name: argocd-bulk-app
@@ -23,7 +33,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-04T20:50:56.266251186+07:00"
+    created: "2025-11-04T20:59:07.393508011+07:00"
     description: A Helm chart for Kubernetes
     digest: 6d334e0f22da973be645aa973241501ca24309584996e6ef0bcf06ad1bf726cb
     name: argocd-bulk-app
@@ -34,9 +44,9 @@ entries:
   nginx-insecure:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-04T20:50:56.268207244+07:00"
+    created: "2025-11-04T20:59:07.395682657+07:00"
     description: A Helm chart for Kubernetes
-    digest: 862bbc7aae78625ac4d8af92f085a0828b1becc5259b72e0fad82cff9363769b
+    digest: 0573c2e05134d5cbf4e4d9cdca8020c0ed1b24ade8e2b45f6fe76f501c576f90
     name: nginx-insecure
     type: application
     urls:
@@ -44,7 +54,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-11-04T20:50:56.267557741+07:00"
+    created: "2025-11-04T20:59:07.395030282+07:00"
     description: A Helm chart for Kubernetes
     digest: 446aac5ef155ec419eabc84d66a246498c4f6c3f11c4176adea926d44cf17d0f
     name: nginx-insecure
@@ -52,4 +62,4 @@ entries:
     urls:
     - https://xlinkersoul.github.io/my-helm-charts/nginx-insecure-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-04T20:50:56.265700207+07:00"
+generated: "2025-11-04T20:59:07.392993403+07:00"

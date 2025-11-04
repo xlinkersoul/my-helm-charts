@@ -34,4 +34,5 @@ spec:
   syncPolicy:
 {{ toYaml $.Values.defaults.syncPolicy | nindent 4 }}
   {{- end }}
+---
 {{- end }}
